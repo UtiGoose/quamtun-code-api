@@ -7,12 +7,14 @@ import goose.api.util.RedisOperator;
 import goose.api.util.Result;
 import goose.api.util.ResultCode;
 import goose.api.util.ResultUtil;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -88,5 +90,29 @@ public class UserController {
     public Result getUserInfo(@RequestBody String requestBody) {
         return ResultUtil.success(ResultCode.GET_DATA_SUCCESS, userService.getUserInfo(requestBody));
     }
+
+
+    @PostMapping("/upload")
+    public String upload(@RequestPart("file") MultipartFile file) throws IOException {
+        System.out.println(file);
+        String fileName = UUID.randomUUID().toString();  //获取文件原名
+        String visibleUri="/"+fileName;     //拼接访问图片的地址
+        String saveUri="D:\\tools\\"+fileName;        //拼接保存图片的真实地址
+
+
+        File saveFile = new File(saveUri);
+        //判断是否存在文件夹，不存在就创建，但其实可以直接手动确定创建好，这样不用每次保存都检测
+        if (!saveFile.exists()){
+            saveFile.mkdirs();
+        }
+        try {
+            file.transferTo(saveFile);  //保存文件到真实存储路径下
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return visibleUri;
+    }
+
 }
 
