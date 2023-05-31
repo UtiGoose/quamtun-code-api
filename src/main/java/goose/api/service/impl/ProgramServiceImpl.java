@@ -105,10 +105,13 @@ public class ProgramServiceImpl extends ServiceImpl<ProgramMapper, Program> impl
     }
 
     @Override
-    public Page<Program> getPage(int current, String name) {
+    public Page<Program> getPage(int current, String name, int category) {
         Page<Program> page = new Page<Program>(current, 4);
         LambdaQueryWrapper<Program> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.like(Program::getLabelTitle, name);
+        if (category != 0) {
+            lambdaQueryWrapper.eq(Program::getCategory, category);
+        }
         return programMapper.selectPage(page, lambdaQueryWrapper);
     }
 

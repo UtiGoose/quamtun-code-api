@@ -42,6 +42,8 @@ public class Program implements Serializable {
 
     private Integer views;
 
+    private Integer category;
+
     private Date createTime;
 
     public Integer getId() {
@@ -140,6 +142,14 @@ public class Program implements Serializable {
         this.views = views;
     }
 
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -152,6 +162,7 @@ public class Program implements Serializable {
     public String toString() {
         return "Program{" +
                 "id=" + id +
+                ", userId=" + userId +
                 ", pyName='" + pyName + '\'' +
                 ", labelTitle='" + labelTitle + '\'' +
                 ", labelQuestion='" + labelQuestion + '\'' +
@@ -162,6 +173,7 @@ public class Program implements Serializable {
                 ", labelSecond='" + labelSecond + '\'' +
                 ", imageSecond='" + imageSecond + '\'' +
                 ", views=" + views +
+                ", category=" + category +
                 ", createTime=" + createTime +
                 '}';
     }

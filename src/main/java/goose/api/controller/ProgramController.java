@@ -47,7 +47,8 @@ public class ProgramController {
         JSONObject jsonObject = JSONObject.parseObject(requestBody);
         int current = jsonObject.getInteger("current");
         String name = jsonObject.getString("name");
-        return ResultUtil.success(ResultCode.GET_DATA_SUCCESS, programService.getPage(current, name));
+        int category = jsonObject.getInteger("category");
+        return ResultUtil.success(ResultCode.GET_DATA_SUCCESS, programService.getPage(current, name, category));
     }
 
 }

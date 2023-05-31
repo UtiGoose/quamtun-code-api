@@ -15,9 +15,8 @@ isH = sys.argv[2]
 
 def gen2(bdh: bool = False):
     img_name = time.strftime("%Y-%m-%d-%H.%M.%S", time.localtime()) + '.png'
-    img_path = os.path.join(os.getcwd(), 'PNG', img_name)
-    if not os.path.exists(os.path.join(os.getcwd(), 'PNG')):
-        os.mkdir(os.path.join(os.getcwd(), 'PNG'))
+    img_path = os.path.join('C:\\static\\image\\', img_name)
+
 
     # 顶点的数量
     v_num = nodeSum

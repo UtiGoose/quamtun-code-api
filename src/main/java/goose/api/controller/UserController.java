@@ -90,28 +90,33 @@ public class UserController {
     public Result getUserInfo(@RequestBody String requestBody) {
         return ResultUtil.success(ResultCode.GET_DATA_SUCCESS, userService.getUserInfo(requestBody));
     }
-
+    @PostMapping("/upd")
+    public Result upd(@RequestBody String requestBody) {
+        return ResultUtil.success(ResultCode.UPDATE_SUCCESS, userService.updateInfo(requestBody));
+    }
 
     @PostMapping("/upload")
-    public String upload(@RequestPart("file") MultipartFile file) throws IOException {
+    public String upload(@RequestParam("file") MultipartFile file) throws IOException {
         System.out.println(file);
-        String fileName = UUID.randomUUID().toString();  //获取文件原名
-        String visibleUri="/"+fileName;     //拼接访问图片的地址
-        String saveUri="D:\\tools\\"+fileName;        //拼接保存图片的真实地址
+        String fileName = file.getOriginalFilename();
+//        //获取文件后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+//        //重新生成文件名
+        fileName = UUID.randomUUID()+suffixName;
 
 
-        File saveFile = new File(saveUri);
-        //判断是否存在文件夹，不存在就创建，但其实可以直接手动确定创建好，这样不用每次保存都检测
-        if (!saveFile.exists()){
+        File saveFile = new File("C:\\static\\image\\"+fileName);
+        if (!saveFile.exists()) {
             saveFile.mkdirs();
         }
+
         try {
             file.transferTo(saveFile);  //保存文件到真实存储路径下
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return visibleUri;
+        return fileName;
     }
 
 }

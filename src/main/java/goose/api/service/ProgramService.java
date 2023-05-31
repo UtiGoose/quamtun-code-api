@@ -18,5 +18,5 @@ import javax.servlet.http.HttpServletRequest;
 public interface ProgramService extends IService<Program> {
     ProgramDto getOne(int id, String token);
 
-    Page<Program> getPage(int current, String name);
+    Page<Program> getPage(int current, String name, int category);
 }

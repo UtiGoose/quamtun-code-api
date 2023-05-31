@@ -110,5 +110,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.selectById(id);
     }
 
+    @Override
+    public int updateInfo(String requestBody) {
+        JSONObject jsonObject = JSONObject.parseObject(requestBody);
+        String token = jsonObject.getString("token");
+        int id = Integer.parseInt(redis.get(token));
+        String avatar = jsonObject.getString("avatar");
+        Integer age = jsonObject.getInteger("age");
+        String education = jsonObject.getString("education");
+        String description = jsonObject.getString("description");
+        User user = userMapper.selectById(id);
+        user.setAvatar(avatar);
+        user.setAge(age);
+        user.setEducation(education);
+        user.setDescription(description);
+
+        return userMapper.updateById(user);
+    }
+
 
 }

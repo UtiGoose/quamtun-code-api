@@ -22,4 +22,6 @@ public interface UserService extends IService<User> {
 
     User getUserInfo(String requestBody);
 
+    int updateInfo(String requestBody);
+
 }
